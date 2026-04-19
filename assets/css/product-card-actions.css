@@ -1,0 +1,384 @@
+/**
+ * Product Card Quick Actions - 3 Dot Menu + Bottom Sheet
+ * Tokopedia-inspired design
+ */
+
+/* ===== 3 Dot Button on Product Card ===== */
+.prod-card {
+    position: relative;
+}
+
+.prod-card-actions-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.prod-card-actions-btn:hover {
+    background: #fff;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+.prod-card-actions-btn:active {
+    transform: scale(0.95);
+}
+
+.prod-card-actions-btn svg {
+    width: 20px;
+    height: 20px;
+    color: #64748b;
+    display: block;
+}
+
+/* Desktop: Show on hover */
+@media (min-width: 641px) {
+    .prod-card-actions-btn {
+        opacity: 0;
+        pointer-events: none;
+    }
+    
+    .prod-card:hover .prod-card-actions-btn {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+/* Mobile: Always visible but smaller */
+@media (max-width: 640px) {
+    .prod-card-actions-btn {
+        width: 28px;
+        height: 28px;
+        top: 6px;
+        right: 6px;
+        opacity: 95%;
+    }
+    
+    .prod-card-actions-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ===== Bottom Sheet Overlay ===== */
+.pca-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 99998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.pca-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===== Bottom Sheet Container ===== */
+.pca-bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+    z-index: 99999;
+    max-width: 600px;
+    margin: 0 auto;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pca-bottom-sheet.active {
+    transform: translateY(0);
+}
+
+/* Drag Handle */
+.pca-sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: #cbd5e1;
+    border-radius: 999px;
+    margin: 12px auto 8px;
+}
+
+/* Product Preview */
+.pca-sheet-product {
+    display: flex;
+    gap: 12px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.pca-product-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #e2e8f0;
+}
+
+.pca-product-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.pca-product-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 4px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.3;
+}
+
+.pca-product-price {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0ea5e9;
+    margin: 0;
+}
+
+.pca-product-stock {
+    font-size: 12px;
+    color: #64748b;
+    margin: 2px 0 0 0;
+}
+
+.pca-product-stock.in {
+    color: #16a34a;
+}
+
+.pca-product-stock.low {
+    color: #ea580c;
+}
+
+.pca-product-stock.out {
+    color: #dc2626;
+}
+
+/* Action Menu */
+.pca-sheet-actions {
+    padding: 8px 0 20px;
+}
+
+.pca-action-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: transparent;
+    border: 0;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pca-action-item:hover {
+    background: #f8fafc;
+}
+
+.pca-action-item:active {
+    background: #f1f5f9;
+}
+
+.pca-action-item:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pca-action-item:disabled:hover {
+    background: transparent;
+}
+
+.pca-action-icon {
+    width: 24px;
+    height: 24px;
+    color: #475569;
+    flex-shrink: 0;
+}
+
+.pca-action-content {
+    flex: 1;
+    text-align: left;
+}
+
+.pca-action-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 0 0 2px 0;
+}
+
+.pca-action-desc {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+}
+
+.pca-action-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: #0ea5e9;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+    margin-left: auto;
+}
+
+.pca-action-badge.compare {
+    background: #8b5cf6;
+}
+
+/* Action Item Colors */
+.pca-action-item.cart .pca-action-icon {
+    color: #0ea5e9;
+}
+
+.pca-action-item.compare .pca-action-icon {
+    color: #8b5cf6;
+}
+
+.pca-action-item.compare.active {
+    background: rgba(139, 92, 246, 0.05);
+}
+
+.pca-action-item.compare.active .pca-action-label {
+    color: #8b5cf6;
+}
+
+.pca-action-item.compare.active .pca-action-icon {
+    color: #8b5cf6;
+}
+
+.pca-action-item.share .pca-action-icon {
+    color: #64748b;
+}
+
+/* Loading State */
+.pca-action-item.loading {
+    pointer-events: none;
+}
+
+.pca-action-item.loading .pca-action-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Success State Animation */
+.pca-action-item.success .pca-action-icon {
+    animation: checkmark 0.5s ease;
+}
+
+@keyframes checkmark {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* ===== Safe Area for Mobile Devices ===== */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .pca-sheet-actions {
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+}
+
+/* ===== Responsive Tweaks ===== */
+@media (max-width: 640px) {
+    .pca-bottom-sheet {
+        border-radius: 16px 16px 0 0;
+    }
+    
+    .pca-sheet-product {
+        padding: 10px 16px;
+    }
+    
+    .pca-product-image {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .pca-product-name {
+        font-size: 13px;
+    }
+    
+    .pca-product-price {
+        font-size: 14px;
+    }
+    
+    .pca-action-item {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+    
+    .pca-action-icon {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .pca-action-label {
+        font-size: 14px;
+    }
+}
+
+/* ===== Animation for Flying Product ===== */
+.flying-product {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    animation: fadeOut 0.8s ease forwards;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+/* ===== Desktop Dropdown (Alternative) ===== */
+@media (min-width: 1024px) {
+    /* Optional: Could add desktop dropdown menu here */
+    /* For now, using bottom sheet for consistency */
+}
+
+/* ===== Print Styles ===== */
+@media print {
+    .prod-card-actions-btn,
+    .pca-overlay,
+    .pca-bottom-sheet {
+        display: none !important;
+    }
+}

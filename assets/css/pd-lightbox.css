@@ -1,0 +1,61 @@
+/* PlazaIT Product Lightbox (vanilla, no CDN) — v4 */
+.pd-lb {
+  position: fixed; inset: 0; z-index: 99999;
+  background: rgba(0,0,0,.95);
+  display: none;
+  color: #fff;
+  /* Transition untuk swipe-down feedback */
+  transition: transform .18s ease, opacity .18s ease;
+}
+.pd-lb.show { display: block; }
+
+/* Canvas di bawah (z:1), Controls di atas (z:2) */
+.pd-lb-canvas {
+  position: absolute; inset: 56px 0 56px 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  touch-action: none;
+  z-index: 1;
+}
+
+.pd-lb-img {
+  max-width: 96vw; max-height: 86vh;
+  will-change: transform;
+  user-select: none;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+}
+
+.pd-lb-close, .pd-lb-prev, .pd-lb-next, .pd-lb-counter {
+  position: absolute;
+  z-index: 2;
+}
+
+.pd-lb-close, .pd-lb-prev, .pd-lb-next {
+  background: rgba(17,24,39,.7);
+  color: #fff; border: 0; cursor: pointer;
+  width: 40px; height: 40px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background-color .15s ease, transform .05s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.pd-lb-close:hover, .pd-lb-prev:hover, .pd-lb-next:hover { background: rgba(31,41,55,.85); }
+.pd-lb-close:active, .pd-lb-prev:active, .pd-lb-next:active { transform: translateY(.5px); }
+
+.pd-lb-close { top: max(12px, env(safe-area-inset-top, 12px)); right: max(12px, env(safe-area-inset-right, 12px)); }
+.pd-lb-prev  { top: 50%; left:  10px; transform: translateY(-50%); }
+.pd-lb-next  { top: 50%; right: 10px; transform: translateY(-50%); }
+
+.pd-lb-counter {
+  top: max(16px, env(safe-area-inset-top, 16px)); left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700; font-size: 13px; letter-spacing: .4px;
+  background: rgba(17,24,39,.65);
+  padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.1);
+}
+
+@media (max-width: 640px){
+  .pd-lb-img { max-width: 98vw; max-height: 80vh; }
+  .pd-lb-prev, .pd-lb-next { width: 36px; height: 36px; }
+  .pd-lb-close { width: 38px; height: 38px; }
+}

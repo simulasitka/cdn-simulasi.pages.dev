@@ -1,0 +1,327 @@
+/* Mobile Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  z-index: 9998; /* Below chat widget */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  display: none; /* Hidden on desktop */
+}
+
+.bottom-nav-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2px 0;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.bottom-nav-item:hover {
+  color: #F28C1A;
+}
+
+.bottom-nav-item.active {
+  flex-direction: row;
+  gap: 8px;
+  background: linear-gradient(135deg, #F28C1A 0%, #D97809 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 8px 16px;
+  box-shadow: 0 2px 8px rgba(242, 140, 26, 0.3);
+}
+
+.bottom-nav-item-icon {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.bottom-nav-item-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon variant switching */
+.bottom-nav-item .icon-outlined {
+  display: block;
+}
+
+.bottom-nav-item .icon-filled {
+  display: none;
+}
+
+.bottom-nav-item.active .icon-outlined {
+  display: none;
+}
+
+.bottom-nav-item.active .icon-filled {
+  display: block;
+}
+
+.bottom-nav-item-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  display: none;
+  white-space: nowrap;
+}
+
+.bottom-nav-item.active .bottom-nav-item-label {
+  display: block;
+}
+
+/* Avatar styles for bottom-nav */
+.bottom-nav-avatar-img,
+.bottom-nav-avatar-initials {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: block;
+}
+
+.bottom-nav-avatar-img {
+  object-fit: cover;
+}
+
+.bottom-nav-avatar-initials {
+  background: linear-gradient(135deg, #F28C1A 0%, #D97809 100%);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+
+/* Hide SVG when avatar is shown */
+.bottom-nav-item-icon:has(.bottom-nav-avatar-img) .bottom-nav-svg-icon,
+.bottom-nav-item-icon:has(.bottom-nav-avatar-initials) .bottom-nav-svg-icon {
+  display: none;
+}
+
+/* Active state adjustments for avatar */
+.bottom-nav-item.active .bottom-nav-avatar-initials {
+  background: white;
+  color: #F28C1A;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+}
+
+.bottom-nav-item.active .bottom-nav-avatar-img {
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+}
+
+.bottom-nav-item-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 5px;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Show on mobile only */
+@media (max-width: 640px) {
+  .bottom-nav {
+    display: block;
+  }
+  
+  /* Add bottom padding to body to prevent content being hidden */
+  body {
+    padding-bottom: 60px;
+  }
+}
+
+/* Mobile User Sheet - Bottom Sheet for Profile Menu */
+.mobile-user-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.mobile-user-sheet:not([hidden]) {
+  pointer-events: auto;
+}
+
+.mobile-user-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.mobile-user-sheet.active .mobile-user-sheet-backdrop {
+  opacity: 1;
+}
+
+.mobile-user-sheet-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 16px 16px 0 0;
+  max-height: 80vh;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+}
+
+.mobile-user-sheet.active .mobile-user-sheet-content {
+  transform: translateY(0);
+}
+
+.mobile-user-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: #d1d5db;
+  border-radius: 2px;
+  margin: 12px auto 16px;
+}
+
+.mobile-user-sheet-header {
+  padding: 0 20px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-user-avatar {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #FFE7CC 0%, #FFD9A8 50%, #FFCC80 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #D97809;
+  font-weight: 600;
+}
+
+.mobile-user-details {
+  flex: 1;
+}
+
+.mobile-user-name {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.mobile-user-email {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.mobile-user-sheet-body {
+  padding: 8px 0;
+}
+
+.mobile-user-sheet-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  color: #374151;
+  transition: background 0.2s;
+}
+
+.mobile-user-sheet-item:hover {
+  background: #f9fafb;
+}
+
+.mobile-user-sheet-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.mobile-user-sheet-label {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.mobile-user-sheet-divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 8px 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Ensure chat widget works well with bottom nav */
+@media (max-width: 640px) {
+  .chat-widget {
+    bottom: 0 !important; /* Chat opens from bottom */
+  }
+  
+  .chat-popup {
+    /* Chat popup should be above bottom nav */
+    z-index: 9999;
+  }
+}
